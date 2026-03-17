@@ -81,6 +81,8 @@ Eso crea este archivo:
 workflows/rgdmh6DBYQK23Djf.json
 ```
 
+Tambien actualiza `workflows/manifest.json` con la metadata del backup actual. Si el manifest ya existe, el workflow se agrega o actualiza sin borrar los demas.
+
 ## Como obtener el ID de un workflow
 
 Toma el ID directamente desde la URL del workflow abierto en n8n Cloud.
@@ -101,6 +103,7 @@ rgdmh6dbyqk23djf
 
 Se guardan dentro de `workflows/`:
 
+- `workflows/manifest.json`: resumen del backup actual, fecha en zona `America/Bogota`, cantidad y lista de workflows
 - `workflows/_workflows_index.json`: lista completa de workflows
 - `workflows/_workflow_ids.txt`: IDs encontrados
 - `workflows/<id>.json`: backup individual por workflow
