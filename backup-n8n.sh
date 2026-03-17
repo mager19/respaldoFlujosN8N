@@ -46,6 +46,8 @@ def format_dt(value):
     dt = datetime.fromisoformat(value.replace("Z", "+00:00"))
     return dt.astimezone(ZoneInfo("America/Bogota")).strftime("%d/%m/%Y:%H:%M")
 
+backup_now = datetime.now(timezone.utc).astimezone(ZoneInfo("America/Bogota")).strftime("%d/%m/%Y:%H:%M")
+
 existing = {"workflows": []}
 if os.path.exists(manifest_path):
     try:
@@ -58,7 +60,8 @@ workflows = existing.get("workflows", [])
 entry = {
     "id": workflow_id,
     "name": wf.get("name"),
-    "updatedAt": format_dt(wf.get("updatedAt")),
+    "n8nUpdatedAt": format_dt(wf.get("updatedAt")),
+    "backedUpAt": backup_now,
     "file": f"{os.environ['BACKUP_DIR']}/{workflow_id}.json",
 }
 
@@ -75,7 +78,7 @@ if not replaced:
 workflows.sort(key=lambda item: (item.get("name") or "", item.get("id") or ""))
 
 manifest = {
-    "backupGeneratedAt": datetime.now(timezone.utc).astimezone(ZoneInfo("America/Bogota")).strftime("%d/%m/%Y:%H:%M"),
+    "backupGeneratedAt": backup_now,
     "baseUrl": os.environ["N8N_BASE_URL"],
     "timezone": "America/Bogota",
     "workflowCount": len(workflows),
@@ -105,6 +108,8 @@ def format_dt(value):
     dt = datetime.fromisoformat(value.replace("Z", "+00:00"))
     return dt.astimezone(ZoneInfo("America/Bogota")).strftime("%d/%m/%Y:%H:%M")
 
+backup_now = datetime.now(timezone.utc).astimezone(ZoneInfo("America/Bogota")).strftime("%d/%m/%Y:%H:%M")
+
 workflows = []
 for wf in data.get("data", []):
     workflow_id = wf.get("id")
@@ -114,7 +119,8 @@ for wf in data.get("data", []):
         {
             "id": workflow_id,
             "name": wf.get("name"),
-            "updatedAt": format_dt(wf.get("updatedAt")),
+            "n8nUpdatedAt": format_dt(wf.get("updatedAt")),
+            "backedUpAt": backup_now,
             "file": f"{os.environ['BACKUP_DIR']}/{workflow_id}.json",
         }
     )
@@ -122,7 +128,7 @@ for wf in data.get("data", []):
 workflows.sort(key=lambda item: (item.get("name") or "", item.get("id") or ""))
 
 manifest = {
-    "backupGeneratedAt": datetime.now(timezone.utc).astimezone(ZoneInfo("America/Bogota")).strftime("%d/%m/%Y:%H:%M"),
+    "backupGeneratedAt": backup_now,
     "baseUrl": os.environ["N8N_BASE_URL"],
     "timezone": "America/Bogota",
     "workflowCount": len(workflows),

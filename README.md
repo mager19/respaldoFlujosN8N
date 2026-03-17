@@ -108,6 +108,11 @@ Se guardan dentro de `workflows/`:
 - `workflows/_workflow_ids.txt`: IDs encontrados
 - `workflows/<id>.json`: backup individual por workflow
 
+Dentro de `manifest.json`, cada workflow incluye dos fechas distintas:
+
+- `n8nUpdatedAt`: ultima fecha de actualizacion del workflow en n8n
+- `backedUpAt`: fecha y hora en que ese workflow fue respaldado localmente
+
 ## Solucion de problemas
 
 - Si ves `unauthorized`, revisa `N8N_API_KEY` en `.env.local`
